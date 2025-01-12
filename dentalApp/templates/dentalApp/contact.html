@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-<section class="contact-section py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="mb-4">Contacto</h2>
-                <div class="contact-info">
+<section class="contact-section py-5 fade-in">
+    <div class="container fade-in">
+        <div class="row fade-in">
+            <div class="col s12 m6 offset-m3 fade-in">
+                <h2 class="center-align mb-4">Contacto</h2>
+                <div class="contact-info center-align">
                     <div class="info-item mb-3">
                         <i class="fas fa-map-marker-alt fa-2x"></i>
                         <p class="d-inline-block ml-2">123 Calle Principal, Ciudad</p>
@@ -21,23 +21,27 @@
                         <p class="d-inline-block ml-2">info@clinicadental.com</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
                 <form method="post" class="contact-form">
                     {% csrf_token %}
-                    <div class="form-group mb-3">
-                        <input type="text" class="form-control" name="name" placeholder="Nombre" required>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" class="form-control" name="name" placeholder="Nombre" required>
+                            <label for="name">Nombre</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input type="tel" class="form-control" name="phone" placeholder="Teléfono">
+                            <label for="phone">Teléfono</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea class="form-control materialize-textarea" name="message" rows="5" placeholder="Mensaje" required></textarea>
+                            <label for="message">Mensaje</label>
+                        </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <input type="email" class="form-control" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="tel" class="form-control" name="phone" placeholder="Teléfono">
-                    </div>
-                    <div class="form-group mb-4">
-                        <textarea class="form-control" name="message" rows="5" placeholder="Mensaje" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                    <button type="submit" class="btn blue">Enviar Mensaje</button>
                 </form>
             </div>
         </div>

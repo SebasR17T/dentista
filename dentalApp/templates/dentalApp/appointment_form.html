@@ -1,31 +1,44 @@
 {% extends 'dentalApp/base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center">Agendar Cita</h1>
-    <form method="post" class="mt-4">
+<div class="container mt-5 fade-in">
+    <h1 class="center-align">Agendar Cita</h1>
+    <form method="post" class="mt-4 fade-in">
         {% csrf_token %}
-        <div class="form-group">
-            <label class="form-label" for="{{ form.service.id_for_label }}">{{ form.service.label }}</label>
-            {{ form.service }}
+        <div class="row">
+            <div class="input-field col s12">
+                {{ form.service }}
+                <label for="{{ form.service.id_for_label }}">{{ form.service.label }}</label>
+            </div>
+            <div class="input-field col s12">
+                {{ form.patient_name }}
+                <label for="{{ form.patient_name.id_for_label }}">{{ form.patient_name.label }}</label>
+            </div>
+            <div class="input-field col s12">
+                {{ form.patient_email }}
+                <label for="{{ form.patient_email.id_for_label }}">{{ form.patient_email.label }}</label>
+            </div>
+            <div class="input-field col s12">
+                {{ form.appointment_date }}
+                <label for="{{ form.appointment_date.id_for_label }}">{{ form.appointment_date.label }}</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" class="timepicker" id="{{ form.appointment_time.id_for_label }}" name="{{ form.appointment_time.name }}">
+                <label for="{{ form.appointment_time.id_for_label }}">{{ form.appointment_time.label }}</label>
+            </div>
         </div>
-        <div class="form-group">
-            <label class="form-label" for="{{ form.patient_name.id_for_label }}">{{ form.patient_name.label }}</label>
-            {{ form.patient_name }}
-        </div>
-        <div class="form-group">
-            <label class="form-label" for="{{ form.patient_email.id_for_label }}">{{ form.patient_email.label }}</label>
-            {{ form.patient_email }}
-        </div>
-        <div class="form-group">
-            <label class="form-label" for="{{ form.appointment_date.id_for_label }}">{{ form.appointment_date.label }}</label>
-            {{ form.appointment_date }}
-        </div>
-        <div class="form-group">
-            <label class="form-label" for="{{ form.appointment_time.id_for_label }}">{{ form.appointment_time.label }}</label>
-            {{ form.appointment_time }}
-        </div>
-        <button type="submit" class="btn btn-primary">Agendar</button>
+        <button type="submit" class="btn blue">Agendar</button>
     </form>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.timepicker');
+        M.Timepicker.init(elems, {
+            twelveHour: false
+        });
+    });
+</script>
 {% endblock %}

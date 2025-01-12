@@ -1,64 +1,127 @@
 {% extends 'dentalApp/base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="text-center">
-        <h1 class="display-4">Welcome to Our Dental Clinic</h1>
-        <p class="lead">We are committed to providing the best dental care for you and your family.</p>
-        <a href="{% url 'agendar_cita' %}" class="btn btn-primary btn-lg">Schedule an Appointment</a>
+<div class="container mt-5 fade-in">
+    <div class="center-align fade-in">
+        <h1 class="display-4">Bienvenido a Nuestra Clínica Dental</h1>
+        <p class="lead">Nos comprometemos a brindar la mejor atención dental para usted y su familia.</p>
+        <a href="{% url 'agendar_cita' %}" class="btn-large blue">Agendar una Cita</a>
     </div>
 
-    <h2 class="mt-5">Our Services</h2>
-    <div class="row">
+    <div class="center-align fade-in">
+        <h2 class="mt-5">Nuestros Servicios</h2>
+    </div>
+    <style>
+        .service-card {
+            height: 650px; /* Ensure all service cards have the same height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .service-card .card-image img {
+            height: 300px; /* Set a fixed height for all service card images */
+            object-fit: cover; /* Ensure the image covers the entire area */
+        }
+        .service-card .card-content, .service-card .card-action {
+            margin: 0 15px; /* Add margin for a more professional look */
+        }
+        .service-card .card-action {
+            margin-top: auto; /* Push the button to the bottom */
+        }
+        .service-card .card-action .btn {
+            background-color: green; /* Change button color to green */
+            display: inline-flex;
+            align-items: center;
+        }
+        .service-card .card-action .btn i {
+            margin-right: 8px; /* Add some space between the icon and the text */
+        }
+        .testimonial-card {
+            height: 300px; /* Set a fixed height for all testimonial cards */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for a professional look */
+            border-radius: 10px; /* Rounded corners */
+            overflow: hidden; /* Ensure content doesn't overflow */
+        }
+        .testimonial-card .card-content {
+            flex-grow: 1;
+            padding: 20px; /* Add padding for better spacing */
+        }
+        .testimonial-card .card-title {
+            font-weight: bold;
+            margin-bottom: 10px; /* Add space below the title */
+        }
+        .testimonial-card .text-warning {
+            margin-top: 10px; /* Add space above the rating */
+        }
+        .testimonial-section {
+            background-color: #ffffff; /* Light background color for the section */
+            padding: 50px 0; /* Add padding to the section */
+        }
+        .testimonial-section h2 {
+            margin-bottom: 30px; /* Add space below the section title */
+        }
+    </style>
+    <div class="row fade-in">
         {% for service in services %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    {% if service.photo %}
-                        <img src="{{ service.photo.url }}" class="card-img-top" alt="{{ service.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h3 class="card-title">{{ service.name }}</h3>
-                        <p class="card-text">{{ service.description }}</p>
-                        <p class="card-text"><strong>Price:</strong> ${{ service.price }}</p>
-                        <p class="card-text"><strong>Duration:</strong> {{ service.duration }}</p>
-                        <a href="https://wa.me/3202274345?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20el%20servicio%20{{ service.name }}" class="btn btn-success">Contactar por WhatsApp</a>
+            <div class="col s12 m4 fade-in">
+                <div class="card service-card">
+                    <div class="card-image">
+                        {% if service.photo %}
+                            <img src="{{ service.photo.url }}" alt="{{ service.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">{{ service.name }}</span>
+                        <p>{{ service.description }}</p>
+                        <p><strong>Precio:</strong> ${{ service.price }}</p>
+                        <p><strong>Duración:</strong> {{ service.duration }}</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="https://wa.me/3202274345?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20el%20servicio%20{{ service.name }}" class="btn green">
+                            <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
 
-    <h2 class="mt-5">Testimonios</h2>
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title">John Doe</h3>
-                    <p class="card-text">"The best dental care I have ever experienced! Professional, courteous, and friendly staff made me feel like family... would highly recommend to anyone!!!"</p>
-                    <div class="text-warning">
-                        &#9733; &#9733; &#9733; &#9733; &#9733;
+    <div class="testimonial-section fade-in">
+        <h2 class="mt-5">Testimonios</h2>
+        <div class="row fade-in">
+            <div class="col s12 m4 fade-in">
+                <div class="card testimonial-card">
+                    <div class="card-content">
+                        <span class="card-title">John Doe</span>
+                        <p>"¡La mejor atención dental que he experimentado! El personal profesional, cortés y amable me hizo sentir como en familia... ¡lo recomendaría a cualquiera!!!"</p>
+                        <div class="text-warning">
+                            &#9733; &#9733; &#9733; &#9733; &#9733;
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title">Jane Smith</h3>
-                    <p class="card-text">"Wonderful experience from start to finish. The staff is very friendly and the dentist is very knowledgeable. I am very happy with my results."</p>
-                    <div class="text-warning">
-                        &#9733; &#9733; &#9733; &#9733; &#9733;
+            <div class="col s12 m4 fade-in">
+                <div class="card testimonial-card">
+                    <div class="card-content">
+                        <span class="card-title">Jane Smith</span>
+                        <p>"Maravillosa experiencia de principio a fin. El personal es muy amable y el dentista es muy conocedor. Estoy muy contenta con mis resultados."</p>
+                        <div class="text-warning">
+                            &#9733; &#9733; &#9733; &#9733; &#9733;
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title">Michael Johnson</h3>
-                    <p class="card-text">"I had a great experience at this clinic. The staff was very professional and the service was top-notch. I would definitely recommend this place to my friends and family."</p>
-                    <div class="text-warning">
-                        &#9733; &#9733; &#9733; &#9733; &#9733;
+            <div class="col s12 m4 fade-in">
+                <div class="card testimonial-card">
+                    <div class="card-content">
+                        <span class="card-title">Michael Johnson</span>
+                        <p>"Tuve una gran experiencia en esta clínica. El personal fue muy profesional y el servicio fue de primera. Definitivamente recomendaría este lugar a mis amigos y familiares."</p>
+                        <div class="text-warning">
+                            &#9733; &#9733; &#9733; &#9733; &#9733;
+                        </div>
                     </div>
                 </div>
             </div>

@@ -3,15 +3,15 @@
 {% block title %}{{ service.name }}{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <h2 class="mb-4">{{ service.name }}</h2>
+<div class="container mt-5 fade-in">
+    <div class="row fade-in">
+        <div class="col-md-6 fade-in">
             {% if service.photo %}
-            <img src="{{ service.photo.url }}" alt="{{ service.name }}" class="img-fluid rounded shadow-sm mb-4">
+            <img src="{{ service.photo.url }}" alt="{{ service.name }}" class="img-fluid rounded shadow-lg mb-4" style="width: 100%; height: 400px;">
             {% endif %}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 fade-in">
+            <h2 class="mb-4">{{ service.name }}</h2>
             <h4>Description</h4>
             <p>{{ service.description }}</p>
             <p><strong>Price:</strong> {{ service.price }} USD</p>
