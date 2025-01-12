@@ -1,0 +1,31 @@
+{% extends 'dentalApp/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Agendar Cita</h1>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="form-label" for="{{ form.service.id_for_label }}">{{ form.service.label }}</label>
+            {{ form.service }}
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="{{ form.patient_name.id_for_label }}">{{ form.patient_name.label }}</label>
+            {{ form.patient_name }}
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="{{ form.patient_email.id_for_label }}">{{ form.patient_email.label }}</label>
+            {{ form.patient_email }}
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="{{ form.appointment_date.id_for_label }}">{{ form.appointment_date.label }}</label>
+            {{ form.appointment_date }}
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="{{ form.appointment_time.id_for_label }}">{{ form.appointment_time.label }}</label>
+            {{ form.appointment_time }}
+        </div>
+        <button type="submit" class="btn btn-primary">Agendar</button>
+    </form>
+</div>
+{% endblock %}

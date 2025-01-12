@@ -1,0 +1,68 @@
+{% extends 'dentalApp/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4">Welcome to Our Dental Clinic</h1>
+        <p class="lead">We are committed to providing the best dental care for you and your family.</p>
+        <a href="{% url 'agendar_cita' %}" class="btn btn-primary btn-lg">Schedule an Appointment</a>
+    </div>
+
+    <h2 class="mt-5">Our Services</h2>
+    <div class="row">
+        {% for service in services %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if service.photo %}
+                        <img src="{{ service.photo.url }}" class="card-img-top" alt="{{ service.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{ service.name }}</h3>
+                        <p class="card-text">{{ service.description }}</p>
+                        <p class="card-text"><strong>Price:</strong> ${{ service.price }}</p>
+                        <p class="card-text"><strong>Duration:</strong> {{ service.duration }}</p>
+                        <a href="https://wa.me/3202274345?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20el%20servicio%20{{ service.name }}" class="btn btn-success">Contactar por WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="mt-5">Testimonios</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">John Doe</h3>
+                    <p class="card-text">"The best dental care I have ever experienced! Professional, courteous, and friendly staff made me feel like family... would highly recommend to anyone!!!"</p>
+                    <div class="text-warning">
+                        &#9733; &#9733; &#9733; &#9733; &#9733;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Jane Smith</h3>
+                    <p class="card-text">"Wonderful experience from start to finish. The staff is very friendly and the dentist is very knowledgeable. I am very happy with my results."</p>
+                    <div class="text-warning">
+                        &#9733; &#9733; &#9733; &#9733; &#9733;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">Michael Johnson</h3>
+                    <p class="card-text">"I had a great experience at this clinic. The staff was very professional and the service was top-notch. I would definitely recommend this place to my friends and family."</p>
+                    <div class="text-warning">
+                        &#9733; &#9733; &#9733; &#9733; &#9733;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
