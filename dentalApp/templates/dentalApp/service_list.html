@@ -1,29 +1,230 @@
 {% extends 'dentalApp/base.html' %}
+{% load static %}
 
 {% block title %}Nuestros Servicios{% endblock %}
 
 {% block content %}
-<div class="container my-5 fade-in">
-    <h2 class="center-align mb-4">Nuestros Servicios</h2>
-    <div class="row fade-in">
-        {% for service in services %}
-        <div class="col s12 m4 fade-in">
-            <div class="card">
-                <div class="card-image">
-                    {% if service.photo %}
-                    <img src="{{ service.photo.url }}" alt="{{ service.name }}">
-                    {% endif %}
+<!-- Parallax Header -->
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="{% static 'images/banner3.jpeg' %}">
+    </div>
+    <div class="container">
+        <!-- Navbar moved inside the banner -->
+        <nav class="transparent-nav" style="margin-top: 20px;">
+            <div class="nav-wrapper">
+                <a href="{% url 'HomePageView' %}" class="brand-logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="responsive-img">
+                    Dental Web
+                </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{% url 'HomePageView' %}"><i class="fas fa-home left"></i>Inicio</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li>
+                        <a href="{% url 'ServiceListView' %}">
+                            <i class="fas fa-tooth left"></i>Servicios
+                        </a>
+                    </li>
+                    <li><a href="{% url 'about' %}"><i class="fas fa-info-circle left"></i>Nosotros</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-envelope left"></i>Contacto</a></li>
+                    <li>
+                        <a href="{% url 'agendar_cita' %}" class="btn-appointment waves-effect waves-light">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="btn-content">
+                                <span class="btn-label">¿Necesitas una cita?</span>
+                                <span class="btn-text">Agenda Ahora</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="center-align white-text" style="padding-top: 100px;">
+            <h1>Nuestros Servicios</h1>
+            <p class="flow-text">Descubre nuestra amplia gama de servicios dentales</p>
+        </div>
+    </div>
+</div>
+
+<div class="section white">
+    <div class="container">
+        <div class="row">
+            {% for service in services %}
+                <div class="col s12 m4 fade-in card-animate">
+                    <div class="card service-card card-animate">
+                        <div class="card-image">
+                            {% if service.photo %}
+                                <img src="{{ service.photo.url }}" alt="{{ service.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">{{ service.name }}</span>
+                            <p class="card-description">{{ service.description }}</p>
+                            <p><strong>Precio:</strong> ${{ service.price }}</p>
+                            <p><strong>Duración:</strong> {{ service.duration }}</p>
+                            <a href="{% url 'ServiceDetailView' service.id %}" class="read-more">Leer más</a>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://wa.me/3202274345?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20el%20servicio%20{{ service.name }}" class="btn green btn-animate">
+                                <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-title">{{ service.name }}</span>
-                    <p>Precio: {{ service.price }} USD</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Primera Visita Section -->
+<div class="section first-visit-section grey lighten-4">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center-align">
+                <h2 class="title-large">Tu Primera Visita</h2>
+                <p class="flow-text">Conoce qué esperar en tu primera consulta con nosotros</p>
+            </div>
+        </div>
+        
+        <div class="row steps-container">
+            <div class="col s12 m6 l4">
+                <div class="step-card">
+                    <i class="material-icons">assignment_ind</i>
+                    <h3>Documentación</h3>
+                    <p>Por favor trae tu identificación oficial y cualquier historial médico relevante para tu primera consulta.</p>
                 </div>
-                <div class="card-action">
-                    <a href="{% url 'ServiceDetailView' service.id %}" class="btn blue">Ver Detalles</a>
+            </div>
+            
+            <div class="col s12 m6 l4">
+                <div class="step-card">
+                    <i class="material-icons">search</i>
+                    <h3>Evaluación Inicial</h3>
+                    <p>Realizaremos un examen completo para entender tus necesidades específicas y crear un plan personalizado.</p>
+                </div>
+            </div>
+            
+            <div class="col s12 m6 l4">
+                <div class="step-card">
+                    <i class="material-icons">description</i>
+                    <h3>Plan de Tratamiento</h3>
+                    <p>Discutiremos contigo las opciones de tratamiento disponibles y desarrollaremos un plan que se ajuste a tus necesidades.</p>
+                </div>
+            </div>
+            
+            <div class="col s12 m6 l4">
+                <div class="step-card">
+                    <i class="material-icons">video_library</i>
+                    <h3>Explicación Detallada</h3>
+                    <p>Utilizamos tecnología moderna para mostrarte cada paso del tratamiento de manera clara y comprensible.</p>
+                </div>
+            </div>
+            
+            <div class="col s12 m6 l4">
+                <div class="step-card">
+                    <i class="material-icons">attach_money</i>
+                    <h3>Opciones de Pago</h3>
+                    <p>Te presentaremos diferentes opciones de pago y planes de financiamiento para hacer tu tratamiento más accesible.</p>
+                </div>
+            </div>
+            
+            <div class="col s12 m6 l4">
+                <div class="step-card">
+                    <i class="material-icons">question_answer</i>
+                    <h3>Resolución de Dudas</h3>
+                    <p>Nuestro equipo estará disponible para responder todas tus preguntas y asegurarse de tu completa tranquilidad.</p>
                 </div>
             </div>
         </div>
-        {% endfor %}
+
+        <div class="row">
+            <div class="col s12 center-align">
+                <a href="{% url 'agendar_cita' %}" class="btn-large waves-effect waves-light">Agenda tu Primera Consulta</a>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+    .parallax-container {
+        height: 500px;
+    }
+    .service-card {
+        height: 450px;
+        display: flex;
+        flex-direction: column;
+    }
+    .service-card .card-image img {
+        height: 100%;
+        object-fit: cover;
+    }
+    .price-tag {
+        color: #4CAF50;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 10px 0;
+    }
+    .card-action {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px !important;
+    }
+    .first-visit-section {
+        padding: 4rem 0;
+    }
+    .section-title {
+        color: #1565c0;
+        margin-bottom: 2rem;
+    }
+    .steps-container {
+        margin-top: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .step-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        height: 300px; /* Altura fija para todas las tarjetas */
+        transition: transform 0.3s ease;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .step-card:hover {
+        transform: translateY(-5px);
+    }
+    .step-card i {
+        font-size: 3.5rem;
+        color: #1565c0;
+        margin-bottom: 1.5rem;
+        display: block;
+    }
+    .step-card h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin: 1rem 0;
+        width: 100%;
+    }
+    .step-card p {
+        color: #666;
+        line-height: 1.6;
+        flex-grow: 1;
+        margin: 0;
+        padding: 0 1rem;
+    }
+    .btn-large {
+        margin-top: 3rem;
+        background-color: #1565c0;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize parallax or other necessary components
+});
+</script>
 {% endblock %}

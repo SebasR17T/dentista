@@ -5,70 +5,533 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Dental Web{% endblock %}</title>
     {% load static %}
+    <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
-        /* Ensure the footer is fixed at the bottom */
         body {
             display: flex;
+            width: 100%;
             min-height: 100vh;
             flex-direction: column;
-            font-size: 1.2rem; /* Increase font size */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for a professional look */
-
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav {
+            padding: 0rem 0;
+            box-shadow: 0 0px 0px rgba(0,0,0,0.1);
+            background-color: white; /* Changed from #1565c0 to white */
+        }
+        nav .brand-logo {
+            font-size: 1.8rem;
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+        nav .brand-logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        .sidenav {
+            width: 250px;
+        }
+        .sidenav li > a {
+            font-size: 1.4rem !important;
+            display: flex;
+            align-items: center;
+        }
+        .sidenav li > a > i {
+            margin-right: 10px;
+        }
+        .sidenav .user-view .name {
+            font-size: 1.6rem;
+            margin-top: 16px;
+        }
+        .sidenav .user-view .email {
+            font-size: 1.2rem;
+        }
+        .nav-wrapper {
+            padding: 0 20px;
+        }
+        .dropdown-content {
+            min-width: 200px;
+        }
+        .dropdown-content li > a {
+            font-size: 1.4rem !important;
+            color: #1565c0;
+        }
+        nav a {
+            font-size: 1.50rem !important;
+            color: black !important; /* Ensure the text color is black */
+            text-decoration: none;
+            padding: 0 20px;
+            transition: color 0.3s ease, transform 0.3s ease; /* Add transition for color and transform */
+            font-family: 'Montserrat', sans-serif; /* Add the new modern font family for navbar */
+        }
+        nav a:hover {
+            color: #1565c0 !important; /* Change color on hover */
+            transform: scale(1.1); /* Scale up on hover */
+        }
+        nav .material-icons {
+            font-size: 1.8rem;
+            margin-right: 5px;
+        }
+        nav .btn {
+            font-size: 1.4rem;
+            height: auto;
+            line-height: 36px;
+            padding: 0 15px;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
         }
         main {
             flex: 1 0 auto;
             width: 100%;
-            margin: 0 auto;
+            margin: 0;
+            padding: 0;
         }
-        nav ul li a {
-            font-size: 1.5rem; /* Increase navbar font size */
+        footer {
+            background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+            color: white;
+            padding: 4rem 0 2rem 0;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1565c0, #64b5f6, #1565c0);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h5 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: #64b5f6;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-social a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-right: 10px;
+            text-align: center;
+            line-height: 35px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #64b5f6;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section h5::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-social {
+                margin-top: 1rem;
+            }
         }
         .fade-in {
             opacity: 0;
+        }
+        .card-animate {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        /* Estilos para el botón mejorado */
+        .btn-appointment {
+            background: linear-gradient(45deg, #1565c0, #0d47a1);
+            border-radius: 25px;
+            padding: 0 25px;
+            height: 45px;
+            line-height: 45px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+            margin-left: 15px;
+        }
+
+        .btn-appointment:hover {
+            background: linear-gradient(45deg, #0d47a1, #1565c0);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-appointment i {
+            margin-right: 8px;
+            font-size: 20px;
+            color: white !important; /* Ensure the icon color remains white */
+        }
+
+        .btn-appointment .btn-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+
+        .btn-appointment .btn-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            color: white !important; /* Ensure the text color remains white */
+        }
+
+        .btn-appointment .btn-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: white !important; /* Ensure the text color remains white */
+        }
+
+        @media only screen and (max-width: 992px) {
+            .btn-appointment {
+                margin: 10px;
+            }
+        }
+
+        /* Estilos para la barra de botones flotante */
+        .floating-button-bar {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .floating-btn .tooltip {
+            position: absolute;
+            right: 70px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .floating-btn:hover .tooltip {
+            opacity: 1;
+            right: 75px;
+        }
+
+        .floating-btn.whatsapp { background: #25D366; }
+        .floating-btn.phone { background: #1565c0; }
+        .floating-btn.email { background: #EA4335; }
+        .floating-btn.facebook { background: #1877F2; }
+        .floating-btn.instagram { background: #E4405F; }
+        .floating-btn.appointment {
+            background: linear-gradient(45deg, #1565c0, #0d47a1);
+            width: auto;
+            height: auto;
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-top: 10px;
+        }
+
+        .floating-btn i {
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .floating-button-bar {
+                bottom: 20px;
+                top: auto;
+                right: 20px;
+                transform: none;
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .floating-btn .tooltip {
+                display: none;
+            }
+
+            .floating-btn.appointment {
+                display: none;
+            }
+        }
+       
+        .transparent-nav {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+        .transparent-nav .nav-wrapper {
+            padding: 0 20px;
+        }
+        .transparent-nav a {
+            color: white !important; /* Ensure the text color is white */
+        }
+        .transparent-nav a:hover {
+            color: #1565c0 !important; /* Change color on hover */
         }
     </style>
 </head>
 <body>
     <header>
-        <nav class="nav-wrapper blue darken-3">
-            <div class="container">
-                <a href="{% url 'HomePageView' %}" class="brand-logo">Dental Web</a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="{% url 'ServiceListView' %}">Servicios</a></li>
-                    <li><a href="{% url 'about' %}">Acerca de Nosotros</a></li>
-                    <li><a href="{% url 'contact' %}">Contacto</a></li>
-                </ul>
-            </div>
-        </nav>
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="#!">Ortodoncia</a></li>
+            <li><a href="#!">Implantes</a></li>
+            <li class="divider"></li>
+            <li><a href="{% url 'ServiceListView' %}">Ver todos</a></li>
+        </ul>
 
+        <!-- Mobile Sidenav -->
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="{% url 'ServiceListView' %}">Servicios</a></li>
-            <li><a href="{% url 'about' %}">Acerca de Nosotros</a></li>
-            <li><a href="{% url 'contact' %}">Contacto</a></li>
+            <li>
+                <div class="user-view">
+                    <div class="background blue darken-2">
+                    </div>
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="circle">
+                    <span class="white-text name">Dental Web</span>
+                    <span class="white-text email">info@dentalweb.com</span>
+                </div>
+            </li>
+            <li><a href="{% url 'HomePageView' %}"><i class="fas fa-home"></i>Inicio</a></li>
+            <li><a href="{% url 'ServiceListView' %}"><i class="fas fa-tooth"></i>Servicios</a></li>
+            <li><a href="{% url 'about' %}"><i class="fas fa-info-circle"></i>Nosotros</a></li>
+            <li><a href="{% url 'contact' %}"><i class="fas fa-envelope"></i>Contacto</a></li>
+            <li class="divider"></li>
+            <li>
+                <a href="{% url 'agendar_cita' %}" class="btn-appointment waves-effect waves-light">
+                    <i class="material-icons">event</i>
+                    <div class="btn-content">
+                        <span class="btn-label">¿Necesitas una cita?</span>
+                        <span class="btn-text">Agenda Ahora</span>
+                    </div>
+                </a>
+            </li>
         </ul>
     </header>
-    <main class="container-fluid mt-4 fade-in">
+
+    <!-- Actualizar la sección de botones flotantes -->
+    <div class="floating-button-bar">
+        {% if social_media.is_whatsapp_active %}
+        <a href="https://wa.me/{{ social_media.whatsapp_number }}" class="floating-btn whatsapp waves-effect">
+            <i class="fab fa-whatsapp"></i>
+            <span class="tooltip">Chatea con nosotros</span>
+        </a>
+        {% endif %}
+        
+        {% if social_media.is_phone_active %}
+        <a href="tel:{{ social_media.phone_number }}" class="floating-btn phone waves-effect">
+            <i class="fas fa-phone"></i>
+            <span class="tooltip">Llámanos ahora</span>
+        </a>
+        {% endif %}
+        
+        {% if social_media.is_email_active %}
+        <a href="mailto:{{ social_media.email }}" class="floating-btn email waves-effect">
+            <i class="fas fa-envelope"></i>
+            <span class="tooltip">Envíanos un email</span>
+        </a>
+        {% endif %}
+        
+        {% if social_media.is_facebook_active %}
+        <a href="{{ social_media.facebook_url }}" target="_blank" class="floating-btn facebook waves-effect">
+            <i class="fab fa-facebook-f"></i>
+            <span class="tooltip">Síguenos en Facebook</span>
+        </a>
+        {% endif %}
+        
+        {% if social_media.is_instagram_active %}
+        <a href="{{ social_media.instagram_url }}" target="_blank" class="floating-btn instagram waves-effect">
+            <i class="fab fa-instagram"></i>
+            <span class="tooltip">Síguenos en Instagram</span>
+        </a>
+        {% endif %}
+        
+        <a href="{% url 'agendar_cita' %}" class="floating-btn appointment waves-effect">
+            <i class="fas fa-calendar-alt"></i>
+            <span class="tooltip">Agenda tu cita</span>
+        </a>
+    </div>
+
+    <main class="mt-4 fade-in">
         {% block content %}{% endblock %}
     </main>
-    <footer class="page-footer blue darken-3 fade-in">
+    <footer class="fade-in">
         <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Dental Web</h5>
-                    <p class="grey-text text-lighten-4">&copy; 2023 Dental Web. Todos los derechos reservados.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>Sobre Nosotros</h5>
+                    <p>Somos una clínica dental comprometida con tu salud bucal, ofreciendo servicios de alta calidad y atención personalizada.</p>
                 </div>
+                <div class="footer-section">
+                    <h5>Enlaces Rápidos</h5>
+                    <p><a href="{% url 'HomePageView' %}">Inicio</a></p>
+                    <p><a href="{% url 'ServiceListView' %}">Servicios</a></p>
+                    <p><a href="{% url 'about' %}">Nosotros</a></p>
+                    <p><a href="{% url 'contact' %}">Contacto</a></p>
+                </div>
+                <div class="footer-section">
+                    <h5>Contacto</h5>
+                    <p><i class="fas fa-phone"></i> {{ social_media.phone_number }}</p>
+                    <p><i class="fas fa-envelope"></i> {{ social_media.email }}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Tu dirección aquí</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Síguenos</h5>
+                    <div class="footer-social">
+                        {% if social_media.is_facebook_active %}
+                        <a href="{{ social_media.facebook_url }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        {% endif %}
+                        {% if social_media.is_instagram_active %}
+                        <a href="{{ social_media.instagram_url }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                        {% endif %}
+                        {% if social_media.is_whatsapp_active %}
+                        <a href="https://wa.me/{{ social_media.whatsapp_number }}"><i class="fab fa-whatsapp"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} Dental Web. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.parallax');
+            M.Parallax.init(elems);
             gsap.to('.fade-in', { opacity: 1, duration: 1, stagger: 0.3 });
+            gsap.to('.nav-animate', { y: 0, opacity: 1, duration: 1 });
+            document.querySelectorAll('.btn-animate').forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    gsap.to(button, { scale: 1.1, duration: 0.2 });
+                });
+                button.addEventListener('mouseleave', () => {
+                    gsap.to(button, { scale: 1, duration: 0.2 });
+                });
+            });
+            gsap.to('.card-animate', { y: 0, opacity: 1, duration: 1, stagger: 0.3 });
+
+            // Initialize mobile sidenav
+            var elems = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(elems);
+
+            // Initialize dropdowns
+            var dropdowns = document.querySelectorAll('.dropdown-trigger');
+            M.Dropdown.init(dropdowns, {
+                coverTrigger: false,
+                constrainWidth: false
+            });
+
+            // Animación para los botones flotantes
+            gsap.from('.floating-button-bar .floating-btn', {
+                opacity: 0,
+                x: 50,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "power2.out",
+                delay: 1
+            });
+
+            // Animación para los enlaces de navegación
+            gsap.from('nav a', {
+                opacity: 0,
+                y: -20,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "power2.out",
+                delay: 0.5
+            });
         });
     </script>
 </body>

@@ -1,44 +1,213 @@
 {% extends 'dentalApp/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5 fade-in">
-    <h1 class="center-align">Agendar Cita</h1>
-    <form method="post" class="mt-4 fade-in">
-        {% csrf_token %}
+<!-- Parallax Header -->
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="{% static 'images/banner2.jpg' %}">
+    </div>
+    <div class="container">
+        <!-- Navbar moved inside the banner -->
+        <nav class="transparent-nav" style="margin-top: 20px;">
+            <div class="nav-wrapper">
+                <a href="{% url 'HomePageView' %}" class="brand-logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="responsive-img">
+                    Dental Web
+                </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{% url 'HomePageView' %}"><i class="fas fa-home left"></i>Inicio</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li>
+                        <a href="{% url 'ServiceListView' %}">
+                            <i class="fas fa-tooth left"></i>Servicios
+                        </a>
+                    </li>
+                    <li><a href="{% url 'about' %}"><i class="fas fa-info-circle left"></i>Nosotros</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-envelope left"></i>Contacto</a></li>
+                    <li>
+                        <a href="{% url 'agendar_cita' %}" class="btn-appointment waves-effect waves-light">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="btn-content">
+                                <span class="btn-label">¿Necesitas una cita?</span>
+                                <span class="btn-text">Agenda Ahora</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="center-align white-text" style="padding-top: 100px;">
+            <h1>Agenda tu Cita</h1>
+            <p class="flow-text">Estamos aquí para cuidar tu sonrisa</p>
+        </div>
+    </div>
+</div>
+
+<div class="section white">
+    <div class="container">
         <div class="row">
-            <div class="input-field col s12">
-                {{ form.service }}
-                <label for="{{ form.service.id_for_label }}">{{ form.service.label }}</label>
+            <!-- Información de contacto -->
+            <div class="col s12 m4">
+                <div class="card-panel blue darken-1 white-text">
+                    <h5>Horario de Atención</h5>
+                    <ul class="collection transparent border-none">
+                        <li class="collection-item transparent white-text">
+                            <i class="material-icons left">schedule</i>
+                            Lunes a Viernes: 8:00 AM - 6:00 PM
+                        </li>
+                        <li class="collection-item transparent white-text">
+                            <i class="material-icons left">schedule</i>
+                            Sábados: 9:00 AM - 2:00 PM
+                        </li>
+                    </ul>
+                    <div class="divider"></div>
+                    <h5>Contacto Directo</h5>
+                    <ul class="collection transparent border-none">
+                        <li class="collection-item transparent white-text">
+                            <i class="material-icons left">phone</i>
+                            +57 320 227 4345
+                        </li>
+                        <li class="collection-item transparent white-text">
+                            <i class="material-icons left">email</i>
+                            citas@dentalweb.com
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="input-field col s12">
-                {{ form.patient_name }}
-                <label for="{{ form.patient_name.id_for_label }}">{{ form.patient_name.label }}</label>
-            </div>
-            <div class="input-field col s12">
-                {{ form.patient_email }}
-                <label for="{{ form.patient_email.id_for_label }}">{{ form.patient_email.label }}</label>
-            </div>
-            <div class="input-field col s12">
-                {{ form.appointment_date }}
-                <label for="{{ form.appointment_date.id_for_label }}">{{ form.appointment_date.label }}</label>
-            </div>
-            <div class="input-field col s12">
-                <input type="text" class="timepicker" id="{{ form.appointment_time.id_for_label }}" name="{{ form.appointment_time.name }}">
-                <label for="{{ form.appointment_time.id_for_label }}">{{ form.appointment_time.label }}</label>
+
+            <!-- Formulario de cita -->
+            <div class="col s12 m8">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title center-align">Formulario de Cita</span>
+                        <form method="post" class="appointment-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">medical_services</i>
+                                    {{ form.service }}
+                                    <label for="{{ form.service.id_for_label }}">Seleccione el Servicio</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person</i>
+                                    {{ form.patient_name }}
+                                    <label for="{{ form.patient_name.id_for_label }}">Nombre Completo</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">email</i>
+                                    {{ form.patient_email }}
+                                    <label for="{{ form.patient_email.id_for_label }}">Correo Electrónico</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">event</i>
+                                    {{ form.appointment_date }}
+                                    <label for="{{ form.appointment_date.id_for_label }}">Fecha de la Cita</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">access_time</i>
+                                    <input type="text" class="timepicker" id="{{ form.appointment_time.id_for_label }}" 
+                                           name="{{ form.appointment_time.name }}">
+                                    <label for="{{ form.appointment_time.id_for_label }}">Hora de la Cita</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">note</i>
+                                    <textarea id="notes" class="materialize-textarea"></textarea>
+                                    <label for="notes">Notas Adicionales (Opcional)</label>
+                                </div>
+                            </div>
+                            <div class="center-align">
+                                <button type="submit" class="btn-large blue waves-effect waves-light">
+                                    Confirmar Cita
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <button type="submit" class="btn blue">Agendar</button>
-    </form>
+    </div>
 </div>
-{% endblock %}
+
+<style>
+    .parallax-container {
+        height: 300px;
+    }
+    .card-panel {
+        border-radius: 8px;
+    }
+    .collection.transparent {
+        border: none;
+    }
+    .collection.transparent .collection-item {
+        background: transparent;
+        border: none;
+        padding: 10px 0;
+    }
+    .appointment-form {
+        padding: 20px 0;
+    }
+    .input-field .prefix {
+        font-size: 1.5rem;
+    }
+    .card {
+        border-radius: 8px;
+    }
+    .btn-large {
+        margin-top: 20px;
+        border-radius: 30px;
+    }
+    /* Estilo para el datepicker y timepicker */
+    .datepicker-date-display, 
+    .timepicker-digital-display {
+        background-color: #1565c0 !important;
+    }
+    .datepicker-cancel, 
+    .datepicker-done,
+    .timepicker-close {
+        color: #1565c0 !important;
+    }
+    .datepicker-table td.selected {
+        background-color: #1565c0 !important;
+    }
+</style>
 
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.timepicker');
-        M.Timepicker.init(elems, {
-            twelveHour: false
+        // Inicializar datepicker
+        var dateElems = document.querySelectorAll('.datepicker');
+        M.Datepicker.init(dateElems, {
+            format: 'yyyy-mm-dd',
+            minDate: new Date(),
+            firstDay: 1,
+            i18n: {
+                months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+                cancel: 'Cancelar',
+                done: 'Aceptar'
+            }
         });
+
+        // Inicializar timepicker
+        var timeElems = document.querySelectorAll('.timepicker');
+        M.Timepicker.init(timeElems, {
+            defaultTime: '09:00',
+            twelveHour: false,
+            i18n: {
+                cancel: 'Cancelar',
+                done: 'Aceptar'
+            }
+        });
+
+        // Inicializar select
+        var selectElems = document.querySelectorAll('select');
+        M.FormSelect.init(selectElems);
     });
 </script>
+{% endblock %}
 {% endblock %}

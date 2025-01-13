@@ -1,23 +1,108 @@
 {% extends 'dentalApp/base.html' %}
+{% load static %}
 
 {% block title %}{{ service.name }}{% endblock %}
 
 {% block content %}
-<div class="container mt-5 fade-in">
-    <div class="row fade-in">
-        <div class="col-md-6 fade-in">
-            {% if service.photo %}
-            <img src="{{ service.photo.url }}" alt="{{ service.name }}" class="img-fluid rounded shadow-lg mb-4" style="width: 100%; height: 400px;">
-            {% endif %}
-        </div>
-        <div class="col-md-6 fade-in">
-            <h2 class="mb-4">{{ service.name }}</h2>
-            <h4>Description</h4>
-            <p>{{ service.description }}</p>
-            <p><strong>Price:</strong> {{ service.price }} USD</p>
-            <p><strong>Duration:</strong> {{ service.duration }}</p>
-            <a href="javascript:history.back()" class="btn btn-secondary mt-3">Back</a>
+<!-- Parallax Header -->
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="{% static 'images/banner1.jpg' %}">
+    </div>
+    <div class="container">
+        <!-- Navbar moved inside the banner -->
+        <nav class="transparent-nav" style="margin-top: 20px;">
+            <div class="nav-wrapper">
+                <a href="{% url 'HomePageView' %}" class="brand-logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="responsive-img">
+                    Dental Web
+                </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{% url 'HomePageView' %}"><i class="fas fa-home left"></i>Inicio</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li>
+                        <a href="{% url 'ServiceListView' %}">
+                            <i class="fas fa-tooth left"></i>Servicios
+                        </a>
+                    </li>
+                    <li><a href="{% url 'about' %}"><i class="fas fa-info-circle left"></i>Nosotros</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-envelope left"></i>Contacto</a></li>
+                    <li>
+                        <a href="{% url 'agendar_cita' %}" class="btn-appointment waves-effect waves-light">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="btn-content">
+                                <span class="btn-label">¿Necesitas una cita?</span>
+                                <span class="btn-text">Agenda Ahora</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="center-align white-text" style="padding-top: 100px;">
+            <h1>{{ service.name }}</h1>
+            <p class="flow-text">Detalles del Servicio</p>
         </div>
     </div>
 </div>
+
+<div class="section white">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="card">
+                    {% if service.photo %}
+                        <div class="card-image">
+                            <img src="{{ service.photo.url }}" alt="{{ service.name }}" class="materialboxed">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card">
+                    <div class="card-content">
+                        <h4>{{ service.name }}</h4>
+                        <div class="divider"></div>
+                        <div class="section">
+                            <h5>Descripción</h5>
+                            <p>{{ service.description }}</p>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="section">
+                            <p><i class="material-icons tiny">attach_money</i> <strong>Precio:</strong> ${{ service.price }}</p>
+                            <p><i class="material-icons tiny">schedule</i> <strong>Duración:</strong> {{ service.duration }}</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{% url 'agendar_cita' %}" class="btn blue waves-effect waves-light">
+                                <i class="material-icons left">event</i> Agendar Cita
+                            </a>
+                            <a href="{% url 'ServiceListView' %}" class="btn-flat waves-effect">
+                                <i class="material-icons left">arrow_back</i> Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .parallax-container {
+        height: 400px;
+    }
+    .card-image img {
+        max-height: 400px;
+        object-fit: cover;
+    }
+    .card-content .section {
+        margin: 20px 0;
+    }
+    .card-action {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
 {% endblock %}

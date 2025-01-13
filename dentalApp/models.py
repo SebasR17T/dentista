@@ -24,3 +24,22 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"{self.patient_name} - {self.service.name} on {self.appointment_date} at {self.appointment_time}"
+
+class SocialMediaSettings(models.Model):
+    whatsapp_number = models.CharField(max_length=20, help_text="Formato: 573202274345")
+    phone_number = models.CharField(max_length=20, help_text="Formato: +573202274345")
+    email = models.EmailField()
+    facebook_url = models.URLField(verbose_name="URL de Facebook")
+    instagram_url = models.URLField(verbose_name="URL de Instagram")
+    is_whatsapp_active = models.BooleanField(default=True)
+    is_phone_active = models.BooleanField(default=True)
+    is_email_active = models.BooleanField(default=True)
+    is_facebook_active = models.BooleanField(default=True)
+    is_instagram_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Configuración de Redes Sociales"
+        verbose_name_plural = "Configuración de Redes Sociales"
+
+    def __str__(self):
+        return "Configuración de Redes Sociales"

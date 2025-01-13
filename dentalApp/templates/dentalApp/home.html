@@ -1,126 +1,245 @@
 {% extends 'dentalApp/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5 fade-in">
-    <div class="center-align fade-in">
-        <h1 class="display-4">Bienvenido a Nuestra Clínica Dental</h1>
-        <p class="lead">Nos comprometemos a brindar la mejor atención dental para usted y su familia.</p>
-        <a href="{% url 'agendar_cita' %}" class="btn-large blue">Agendar una Cita</a>
+<!-- First Parallax Section -->
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="{% static 'images/banner1.jpg' %}">
     </div>
-
-    <div class="center-align fade-in">
-        <h2 class="mt-5">Nuestros Servicios</h2>
-    </div>
-    <style>
-        .service-card {
-            height: 650px; /* Ensure all service cards have the same height */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .service-card .card-image img {
-            height: 300px; /* Set a fixed height for all service card images */
-            object-fit: cover; /* Ensure the image covers the entire area */
-        }
-        .service-card .card-content, .service-card .card-action {
-            margin: 0 15px; /* Add margin for a more professional look */
-        }
-        .service-card .card-action {
-            margin-top: auto; /* Push the button to the bottom */
-        }
-        .service-card .card-action .btn {
-            background-color: green; /* Change button color to green */
-            display: inline-flex;
-            align-items: center;
-        }
-        .service-card .card-action .btn i {
-            margin-right: 8px; /* Add some space between the icon and the text */
-        }
-        .testimonial-card {
-            height: 300px; /* Set a fixed height for all testimonial cards */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for a professional look */
-            border-radius: 10px; /* Rounded corners */
-            overflow: hidden; /* Ensure content doesn't overflow */
-        }
-        .testimonial-card .card-content {
-            flex-grow: 1;
-            padding: 20px; /* Add padding for better spacing */
-        }
-        .testimonial-card .card-title {
-            font-weight: bold;
-            margin-bottom: 10px; /* Add space below the title */
-        }
-        .testimonial-card .text-warning {
-            margin-top: 10px; /* Add space above the rating */
-        }
-        .testimonial-section {
-            background-color: #ffffff; /* Light background color for the section */
-            padding: 50px 0; /* Add padding to the section */
-        }
-        .testimonial-section h2 {
-            margin-bottom: 30px; /* Add space below the section title */
-        }
-    </style>
-    <div class="row fade-in">
-        {% for service in services %}
-            <div class="col s12 m4 fade-in">
-                <div class="card service-card">
-                    <div class="card-image">
-                        {% if service.photo %}
-                            <img src="{{ service.photo.url }}" alt="{{ service.name }}">
-                        {% endif %}
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title">{{ service.name }}</span>
-                        <p>{{ service.description }}</p>
-                        <p><strong>Precio:</strong> ${{ service.price }}</p>
-                        <p><strong>Duración:</strong> {{ service.duration }}</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="https://wa.me/3202274345?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20el%20servicio%20{{ service.name }}" class="btn green">
-                            <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+    <div class="container">
+        <!-- Navbar moved inside the banner -->
+        <nav class="transparent-nav" style="margin-top: 20px;">
+            <div class="nav-wrapper">
+                <a href="{% url 'HomePageView' %}" class="brand-logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="responsive-img">
+                    Dental Web
+                </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{% url 'HomePageView' %}"><i class="fas fa-home left"></i>Inicio</a></li>
+                    <li>
+                        <a href="{% url 'ServiceListView' %}">
+                            <i class="fas fa-tooth left"></i>Servicios
                         </a>
-                    </div>
-                </div>
+                    </li>
+                    <li><a href="{% url 'about' %}"><i class="fas fa-info-circle left"></i>Nosotros</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-envelope left"></i>Contacto</a></li>
+                    <li>
+                        <a href="{% url 'agendar_cita' %}" class="btn-appointment waves-effect waves-light">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="btn-content">
+                                <span class="btn-label">¿Necesitas una cita?</span>
+                                <span class="btn-text">Agenda Ahora</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        {% endfor %}
+        </nav>
+        <div class="center-align white-text" style="padding-top: 100px;">
+            <h1 class="display-4">Bienvenido a Nuestra Clínica Dental</h1>
+            <p class="lead">Nos comprometemos a brindar la mejor atención dental para usted y su familia.</p>
+        </div>
     </div>
+</div>
 
-    <div class="testimonial-section fade-in">
-        <h2 class="mt-5">Testimonios</h2>
-        <div class="row fade-in">
-            <div class="col s12 m4 fade-in">
-                <div class="card testimonial-card">
-                    <div class="card-content">
-                        <span class="card-title">John Doe</span>
-                        <p>"¡La mejor atención dental que he experimentado! El personal profesional, cortés y amable me hizo sentir como en familia... ¡lo recomendaría a cualquiera!!!"</p>
-                        <div class="text-warning">
-                            &#9733; &#9733; &#9733; &#9733; &#9733;
+<!-- New Call to Action Section -->
+<div class="section blue-grey lighten-5">
+    <div class="container">
+        <div class="row center-align">
+            <h2 class="title-large">Expertos en Sonrisas Perfectas</h2>
+            <p class="flow-text">Uno de los mejores servicios odontológicos en la región. ¿Por qué esperar? Tu sonrisa merece lo mejor.</p>
+            <a href="{% url 'agendar_cita' %}" class="btn-large blue waves-effect waves-light pulse">
+                <i class="fas fa-calendar-alt left"></i>Agenda tu Consulta Ahora
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Nuestros Servicios Section (moved up) -->
+<div class="section white">
+    <div class="container">
+        <div class="center-align">
+            <h2 class="title-large">Nuestros Servicios</h2>
+            <div class="services-intro">
+                <p class="flow-text">
+                    Ofrecemos una amplia gama de servicios dentales de alta calidad para toda la familia. 
+                    Desde limpiezas rutinarias hasta tratamientos especializados, nuestro equipo de profesionales 
+                    está comprometido con tu salud bucal. Contamos con tecnología de última generación y años de 
+                    experiencia para brindarte:
+                </p>
+                <div class="services-highlights">
+                    <span class="chip">Limpieza Dental</span>
+                    <span class="chip">Blanqueamiento</span>
+                    <span class="chip">Ortodoncia</span>
+                    <span class="chip">Implantes</span>
+                    <span class="chip">Endodoncia</span>
+                    <span class="chip">Odontología Estética</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for service in services %}
+                <div class="col s12 m4 fade-in card-animate">
+                    <div class="card service-card card-animate">
+                        <div class="card-image">
+                            {% if service.photo %}
+                                <img src="{{ service.photo.url }}" alt="{{ service.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">{{ service.name }}</span>
+                            <p class="card-description">{{ service.description }}</p>
+                            <p><strong>Precio:</strong> ${{ service.price }}</p>
+                            <p><strong>Duración:</strong> {{ service.duration }}</p>
+                            <a href="{% url 'ServiceDetailView' service.id %}" class="read-more">Leer más</a>
+                        </div>
+                        <div class="card-action">
+                            <a href="https://wa.me/3202274345?text=Hola,%20me%20gustaría%20obtener%20información%20sobre%20el%20servicio%20{{ service.name }}" class="btn green btn-animate">
+                                <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Third Parallax Section -->
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="{% static 'images/bannerx.jpeg' %}">
+    </div>
+</div>
+
+<!-- Por qué elegirnos Section (moved down) -->
+<div class="section blue-grey lighten-5">
+    <div class="container">
+        <div class="center-align">
+            <h2 class="title-large">¿Por qué Elegirnos?</h2>
+            <p class="flow-text">Descubre lo que nos hace diferentes</p>
+        </div>
+        <div class="row why-choose-us">
             <div class="col s12 m4 fade-in">
-                <div class="card testimonial-card">
-                    <div class="card-content">
-                        <span class="card-title">Jane Smith</span>
-                        <p>"Maravillosa experiencia de principio a fin. El personal es muy amable y el dentista es muy conocedor. Estoy muy contenta con mis resultados."</p>
-                        <div class="text-warning">
-                            &#9733; &#9733; &#9733; &#9733; &#9733;
-                        </div>
-                    </div>
+                <div class="why-choose-card center-align">
+                    <i class="fas fa-user-md why-choose-icon"></i>
+                    <h3>Experiencia Profesional</h3>
+                    <p>Nuestro equipo cuenta con más de 15 años de experiencia y constante actualización en las últimas técnicas.</p>
                 </div>
             </div>
             <div class="col s12 m4 fade-in">
-                <div class="card testimonial-card">
-                    <div class="card-content">
-                        <span class="card-title">Michael Johnson</span>
-                        <p>"Tuve una gran experiencia en esta clínica. El personal fue muy profesional y el servicio fue de primera. Definitivamente recomendaría este lugar a mis amigos y familiares."</p>
-                        <div class="text-warning">
-                            &#9733; &#9733; &#9733; &#9733; &#9733;
+                <div class="why-choose-card center-align">
+                    <i class="fas fa-microscope why-choose-icon"></i>
+                    <h3>Tecnología Avanzada</h3>
+                    <p>Utilizamos equipos de última generación para diagnósticos precisos y tratamientos efectivos.</p>
+                </div>
+            </div>
+            <div class="col s12 m4 fade-in">
+                <div class="why-choose-card center-align">
+                    <i class="fas fa-clock why-choose-icon"></i>
+                    <h3>Atención Inmediata</h3>
+                    <p>Respuesta rápida a emergencias y horarios flexibles para tu comodidad.</p>
+                </div>
+            </div>
+            <div class="col s12 m4 fade-in">
+                <div class="why-choose-card center-align">
+                    <i class="fas fa-hand-holding-heart why-choose-icon"></i>
+                    <h3>Atención Personalizada</h3>
+                    <p>Tratamientos adaptados a las necesidades específicas de cada paciente.</p>
+                </div>
+            </div>
+            <div class="col s12 m4 fade-in">
+                <div class="why-choose-card center-align">
+                    <i class="fas fa-shield-alt why-choose-icon"></i>
+                    <h3>Protocolos de Seguridad</h3>
+                    <p>Máximos estándares de higiene y seguridad en todos nuestros procedimientos.</p>
+                </div>
+            </div>
+            <div class="col s12 m4 fade-in">
+                <div class="why-choose-card center-align">
+                    <i class="fas fa-dollar-sign why-choose-icon"></i>
+                    <h3>Precios Accesibles</h3>
+                    <p>Diferentes opciones de pago y planes de financiamiento para tu conveniencia.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section white">
+    <div class="container">
+        <div class="testimonial-section">
+            <h2 class="title-large center-align">Testimonios</h2>
+            <p class="flow-text center-align" style="margin-bottom: 40px;">
+                Descubre lo que nuestros pacientes dicen sobre su experiencia en nuestra clínica. 
+                Sus opiniones son nuestro mejor respaldo.
+            </p>
+            <div class="row fade-in">
+                <div class="col s12 m4 fade-in card-animate">
+                    <div class="card testimonial-card card-animate">
+                        <div class="card-content">
+                            <span class="card-title">John Doe</span>
+                            <p>"¡La mejor atención dental que he experimentado! El personal profesional, cortés y amable me hizo sentir como en familia... ¡lo recomendaría a cualquiera!!!"</p>
+                            <div class="text-warning">
+                                &#9733; &#9733; &#9733; &#9733; &#9733;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4 fade-in card-animate">
+                    <div class="card testimonial-card card-animate">
+                        <div class="card-content">
+                            <span class="card-title">Jane Smith</span>
+                            <p>"Maravillosa experiencia de principio a fin. El personal es muy amable y el dentista es muy conocedor. Estoy muy contenta con mis resultados."</p>
+                            <div class="text-warning">
+                                &#9733; &#9733; &#9733; &#9733; &#9733;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4 fade-in card-animate">
+                    <div class="card testimonial-card card-animate">
+                        <div class="card-content">
+                            <span class="card-title">Michael Johnson</span>
+                            <p>"Tuve una gran experiencia en esta clínica. El personal fue muy profesional y el servicio fue de primera. Definitivamente recomendaría este lugar."</p>
+                            <div class="text-warning">
+                                &#9733; &#9733; &#9733; &#9733; &#9733;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4 fade-in card-animate">
+                    <div class="card testimonial-card card-animate">
+                        <div class="card-content">
+                            <span class="card-title">Ana García</span>
+                            <p>"Excelente atención en la clínica. El tratamiento de ortodoncia superó mis expectativas. El equipo es muy profesional y siempre están pendientes de tu progreso."</p>
+                            <div class="text-warning">
+                                &#9733; &#9733; &#9733; &#9733; &#9733;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4 fade-in card-animate">
+                    <div class="card testimonial-card card-animate">
+                        <div class="card-content">
+                            <span class="card-title">Carlos Rodríguez</span>
+                            <p>"Los precios son muy razonables y la calidad del servicio es excepcional. Me encantó la tecnología que utilizan y la explicación detallada de cada procedimiento."</p>
+                            <div class="text-warning">
+                                &#9733; &#9733; &#9733; &#9733; &#9734;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m4 fade-in card-animate">
+                    <div class="card testimonial-card card-animate">
+                        <div class="card-content">
+                            <span class="card-title">María López</span>
+                            <p>"Mi experiencia con el blanqueamiento dental fue increíble. Los resultados fueron notables desde la primera sesión. El personal es muy amable y profesional."</p>
+                            <div class="text-warning">
+                                &#9733; &#9733; &#9733; &#9733; &#9733;
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -128,4 +247,55 @@
         </div>
     </div>
 </div>
+
+<!-- Contact Form Section -->
+<div class="section blue-grey lighten-5">
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h2 class="title-large center-align">Contáctanos</h2>
+                <p class="flow-text center-align">Estamos aquí para responder tus preguntas</p>
+            </div>
+            <!-- Contact Form -->
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <form method="post" class="contact-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person</i>
+                                    <input type="text" name="name" id="name" required>
+                                    <label for="name">Nombre</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">email</i>
+                                    <input type="email" name="email" id="email" required>
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">phone</i>
+                                    <input type="tel" name="phone" id="phone">
+                                    <label for="phone">Teléfono</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">message</i>
+                                    <textarea name="message" id="message" class="materialize-textarea" required></textarea>
+                                    <label for="message">Mensaje</label>
+                                </div>
+                            </div>
+                            <div class="center-align">
+                                <button type="submit" class="btn-large blue waves-effect waves-light">
+                                    Enviar Mensaje
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

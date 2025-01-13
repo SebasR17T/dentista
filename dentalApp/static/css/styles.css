@@ -1,0 +1,173 @@
+.parallax-container {
+    height: 500px;
+    position: relative;
+}
+
+.section {
+    padding: 50px 0;
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 450px;
+    overflow: hidden;
+}
+
+.service-card .card-image img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-card .card-content {
+    margin: 0 15px;
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.service-card .card-content .card-description {
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.service-card .card-content .read-more {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #1565c0;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.service-card .card-action {
+    margin-top: auto;
+}
+
+.service-card .card-action .btn {
+    background-color: green;
+    display: inline-flex;
+    align-items: center;
+}
+
+.service-card .card-action .btn i {
+    margin-right: 8px;
+}
+
+.testimonial-card {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.testimonial-card .card-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.testimonial-card .card-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.testimonial-card .text-warning {
+    margin-top: 10px;
+}
+
+.testimonial-section {
+    background-color: #ffffff;
+    padding: 50px 0;
+}
+
+.testimonial-section h2 {
+    margin-bottom: 30px;
+}
+
+.title-large {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1565c0;
+}
+
+.blue-grey.lighten-5 {
+    padding: 40px 0;
+}
+
+.services-intro {
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+.services-highlights {
+    margin-top: 20px;
+}
+
+.chip {
+    margin: 5px;
+    background-color: #1565c0;
+    color: white;
+    font-weight: 500;
+}
+
+.why-choose-card {
+    padding: 30px 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 250px;
+}
+
+.why-choose-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.why-choose-icon {
+    font-size: 3rem;
+    color: #1565c0;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.why-choose-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 500;
+}
+
+.why-choose-card p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.why-choose-us {
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .service-card .card-image img {
+        height: 150px;
+    }
+}
+
+@media (max-width: 600px) {
+    .why-choose-card {
+        height: auto;
+        min-height: 200px;
+    }
+}

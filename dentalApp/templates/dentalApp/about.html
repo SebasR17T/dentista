@@ -2,31 +2,172 @@
 {% load static %}
 
 {% block content %}
-<div class="container py-5 fade-in">
-    <div class="row fade-in">
-        <div class="col s12 fade-in">
-            <h1 class="center-align mb-4">Acerca de Nosotros</h1>
-            <div class="card">
-                <div class="card-content">
-                    <p class="lead">
-                        Somos una clínica dental comprometida con brindar la mejor atención y cuidado dental a nuestros pacientes.
-                        Con años de experiencia y un equipo altamente calificado, nos dedicamos a mantener sonrisas saludables.
-                    </p>
-                    <h3 class="mt-4">Nuestra Misión</h3>
-                    <p>
-                        Proporcionar servicios dentales de alta calidad con un enfoque personalizado para cada paciente,
-                        utilizando la última tecnología y técnicas innovadoras en un ambiente cómodo y acogedor.
-                    </p>
-                    <h3 class="mt-4">Nuestros Valores</h3>
-                    <ul class="collection">
-                        <li class="collection-item">Excelencia profesional</li>
-                        <li class="collection-item">Atención personalizada</li>
-                        <li class="collection-item">Compromiso con la salud</li>
-                        <li class="collection-item">Ética y transparencia</li>
-                    </ul>
+<!-- First Parallax Section -->
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="{% static 'images/banner1.jpg' %}">
+    </div>
+    <div class="container">
+        <!-- Navbar moved inside the banner -->
+        <nav class="transparent-nav" style="margin-top: 20px;">
+            <div class="nav-wrapper">
+                <a href="{% url 'HomePageView' %}" class="brand-logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="responsive-img">
+                    Dental Web
+                </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{% url 'HomePageView' %}"><i class="fas fa-home left"></i>Inicio</a></li>
+                    <!-- Dropdown Trigger -->
+                    <li>
+                        <a href="{% url 'ServiceListView' %}">
+                            <i class="fas fa-tooth left"></i>Servicios
+                        </a>
+                    </li>
+                    <li><a href="{% url 'about' %}"><i class="fas fa-info-circle left"></i>Nosotros</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-envelope left"></i>Contacto</a></li>
+                    <li>
+                        <a href="{% url 'agendar_cita' %}" class="btn-appointment waves-effect waves-light">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="btn-content">
+                                <span class="btn-label">¿Necesitas una cita?</span>
+                                <span class="btn-text">Agenda Ahora</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="center-align white-text" style="padding-top: 100px;">
+            <h1 class="main-title">Nuestra Clínica Dental</h1>
+            <p class="flow-text">Más de una década creando sonrisas perfectas</p>
+        </div>
+    </div>
+</div>
+
+<div class="section white">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <h2 class="header blue-text">Nuestra Historia</h2>
+                <p class="flow-text">
+                    Fundada en 2010, nuestra clínica dental ha sido pionera en tratamientos dentales innovadores. 
+                    Comenzamos con un simple objetivo: hacer que la odontología de calidad sea accesible para todos.
+                </p>
+                <p class="flow-text">
+                    Hoy, más de 5,000 pacientes confían en nosotros para mantener sus sonrisas saludables y brillantes.
+                </p>
+            </div>
+            <div class="col s12 m6">
+                <img src="{% static 'images/clinic-front.jpg' %}" alt="Nuestra Clínica" class="responsive-img materialboxed">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mission and Vision Section -->
+<div class="section blue darken-1 white-text">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <h3><i class="material-icons medium">visibility</i> Nuestra Visión</h3>
+                <p class="flow-text">
+                    Ser reconocidos como la clínica dental líder en innovación y calidad de atención en toda la región.
+                </p>
+            </div>
+            <div class="col s12 m6">
+                <h3><i class="material-icons medium">track_changes</i> Nuestra Misión</h3>
+                <p class="flow-text">
+                    Proporcionar servicios dentales excepcionales utilizando tecnología de vanguardia y un equipo altamente capacitado.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Team Section with updated styling -->
+<div class="section white">
+    <div class="container">
+        <h2 class="header center blue-text">Nuestro Equipo Profesional</h2>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{% static 'images/cr7.jpg' %}" alt="Dr. Juan Pérez">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">Dr. Cristiano Pérez</span>
+                        <p>Ortodoncista Senior</p>
+                        <ul>
+                            <li>• Especialista en Ortodoncia</li>
+                            <li>• 15 años de experiencia</li>
+                            <li>• Miembro de la Asociación Dental Internacional</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Similar cards for other doctors -->
+        </div>
+    </div>
+</div>
+
+<!-- Values Section with new styling -->
+<div class="section grey lighten-4">
+    <div class="container">
+        <h2 class="header center blue-text">Nuestros Valores</h2>
+        <div class="row">
+            <div class="col s12 m3">
+                <div class="center promo">
+                    <i class="material-icons large blue-text">star</i>
+                    <h5>Excelencia</h5>
+                    <p>Buscamos la perfección en cada tratamiento</p>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="center promo">
+                    <i class="material-icons large blue-text">favorite</i>
+                    <h5>Compromiso</h5>
+                    <p>Tu salud dental es nuestra prioridad</p>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="center promo">
+                    <i class="material-icons large blue-text">group</i>
+                    <h5>Trabajo en Equipo</h5>
+                    <p>Colaboración para mejores resultados</p>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="center promo">
+                    <i class="material-icons large blue-text">verified_user</i>
+                    <h5>Confianza</h5>
+                    <p>Transparencia en todos nuestros servicios</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.parallax-container {
+    height: 500px;
+}
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+.promo {
+    padding: 20px;
+}
+.card {
+    height: 100%;
+}
+.card-content ul {
+    margin-top: 15px;
+}
+.card-content ul li {
+    margin-bottom: 8px;
+}
+</style>
 {% endblock %}

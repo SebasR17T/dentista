@@ -2,49 +2,161 @@
 {% load static %}
 
 {% block content %}
-<section class="contact-section py-5 fade-in">
-    <div class="container fade-in">
-        <div class="row fade-in">
-            <div class="col s12 m6 offset-m3 fade-in">
-                <h2 class="center-align mb-4">Contacto</h2>
-                <div class="contact-info center-align">
-                    <div class="info-item mb-3">
-                        <i class="fas fa-map-marker-alt fa-2x"></i>
-                        <p class="d-inline-block ml-2">123 Calle Principal, Ciudad</p>
-                    </div>
-                    <div class="info-item mb-3">
-                        <i class="fas fa-phone fa-2x"></i>
-                        <p class="d-inline-block ml-2">+34 123 456 789</p>
-                    </div>
-                    <div class="info-item mb-3">
-                        <i class="fas fa-envelope fa-2x"></i>
-                        <p class="d-inline-block ml-2">info@clinicadental.com</p>
+<!-- White Header Banner -->
+<div class="white-banner">
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="white" style="margin-top: 20px;">
+            <div class="nav-wrapper">
+                <a href="{% url 'HomePageView' %}" class="brand-logo black-text">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="responsive-img">
+                    Dental Web
+                </a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger black-text"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{% url 'HomePageView' %}" class="black-text"><i class="fas fa-home left"></i>Inicio</a></li>
+                    <li>
+                        <a href="{% url 'ServiceListView' %}" class="black-text">
+                            <i class="fas fa-tooth left"></i>Servicios
+                        </a>
+                    </li>
+                    <li><a href="{% url 'about' %}" class="black-text"><i class="fas fa-info-circle left"></i>Nosotros</a></li>
+                    <li><a href="{% url 'contact' %}" class="black-text"><i class="fas fa-envelope left"></i>Contacto</a></li>
+                    <li>
+                        <a href="{% url 'agendar_cita' %}" class="btn-appointment waves-effect waves-light">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="btn-content">
+                                <span class="btn-label">¿Necesitas una cita?</span>
+                                <span class="btn-text">Agenda Ahora</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="center-align" style="padding: 60px 0;">
+            <h1 class="black-text">Contáctanos</h1>
+            <p class="flow-text black-text">Estamos aquí para ayudarte</p>
+        </div>
+    </div>
+</div>
+
+<div class="section white">
+    <div class="container">
+        <div class="row">
+            <!-- Info Cards -->
+            <div class="col s12 m4">
+                <div class="card-panel center-align">
+                    <i class="material-icons large blue-text">location_on</i>
+                    <h5>Dirección</h5>
+                    <p>123 Calle Principal, Ciudad</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card-panel center-align">
+                    <i class="material-icons large blue-text">phone</i>
+                    <h5>Teléfono</h5>
+                    <p>+34 123 456 789</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card-panel center-align">
+                    <i class="material-icons large blue-text">email</i>
+                    <h5>Email</h5>
+                    <p>info@clinicadental.com</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title center-align">Envíanos un mensaje</span>
+                        <form method="post" class="contact-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">person</i>
+                                    <input type="text" name="name" id="name" required>
+                                    <label for="name">Nombre</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <i class="material-icons prefix">email</i>
+                                    <input type="email" name="email" id="email" required>
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">phone</i>
+                                    <input type="tel" name="phone" id="phone">
+                                    <label for="phone">Teléfono</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">message</i>
+                                    <textarea name="message" id="message" class="materialize-textarea" required></textarea>
+                                    <label for="message">Mensaje</label>
+                                </div>
+                            </div>
+                            <div class="center-align">
+                                <button type="submit" class="btn-large blue waves-effect waves-light">
+                                    Enviar Mensaje
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <form method="post" class="contact-form">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" class="form-control" name="name" placeholder="Nombre" required>
-                            <label for="name">Nombre</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <input type="email" class="form-control" name="email" placeholder="Email" required>
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <input type="tel" class="form-control" name="phone" placeholder="Teléfono">
-                            <label for="phone">Teléfono</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <textarea class="form-control materialize-textarea" name="message" rows="5" placeholder="Mensaje" required></textarea>
-                            <label for="message">Mensaje</label>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn blue">Enviar Mensaje</button>
-                </form>
             </div>
         </div>
     </div>
-</section>
+</div>
+
+<!-- Map Section -->
+<div class="section grey lighten-4">
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9728391274434!2d-74.07411272425828!3d4.607088142504578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a7f4d40a3f%3A0x4a2c5a5c4e8e4b0a!2sBogot%C3%A1%2C%20Colombia!5e0!3m2!1sen!2sus!4v1629789876543!5m2!1sen!2sus" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .white-banner {
+        background-color: white;
+        min-height: 300px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .parallax-container {
+        height: 600px; /* Increased from 600px */
+    }
+    .parallax img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .card-panel {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .card-panel i {
+        margin-bottom: 15px;
+    }
+    .contact-form {
+        margin-top: 20px;
+    }
+    .input-field .prefix {
+        font-size: 1.5rem;
+    }
+</style>
 {% endblock %}
