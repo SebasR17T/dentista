@@ -27,7 +27,12 @@ SECRET_KEY = 'django-insecure-zyq=kfm2t0k(a%a6%j=u2*@bi86h@gc&80@0)av#swvpc@gj17
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+ALLOWED_HOSTS = ['web-production-55505.up.railway.app', 'localhost', '127.0.0.1', '*']
+
+# Add this new setting for CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-55505.up.railway.app',
+]
 
 
 # Application definition
@@ -50,7 +55,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line after SecurityMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # Make sure this is present
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -124,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'dentalApp/static')]  # Ensure this line is present
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'dentalApp/staticfiles')]  # Ensure this line is present
 
 # Add these settings for whitenoise
 STATIC_ROOT = os.path.join(BASE_DIR, 'dentalApp/static')
