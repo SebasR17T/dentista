@@ -1,11 +1,21 @@
 from django.contrib import admin
+from django.contrib.admin import AdminSite
+from django.utils.translation import ugettext_lazy
 from .models import Service, Appointment, SocialMediaSettings
 
-# Register your models here.
-admin.site.register(Service)
-admin.site.register(Appointment)
+# Customizing the AdminSite
+class MyAdminSite(AdminSite):
+    site_header = ugettext_lazy('Dental Web Administration')
+    site_title = ugettext_lazy('Dental Web Admin')
+    index_title = ugettext_lazy('Welcome to Dental Web Admin')
 
-@admin.register(SocialMediaSettings)
+admin_site = MyAdminSite(name='myadmin')
+
+# Register your models here.
+admin_site.register(Service)
+admin_site.register(Appointment)
+
+@admin.register(SocialMediaSettings, site=admin_site)
 class SocialMediaSettingsAdmin(admin.ModelAdmin):
     list_display = ['whatsapp_number', 'phone_number', 'email']
     fieldsets = (
