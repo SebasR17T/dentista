@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy as _
 from .models import Service, Appointment, SocialMediaSettings
 
 # Customizing the AdminSite
 class MyAdminSite(AdminSite):
-    site_header = ugettext_lazy('Dental Web Administration')
-    site_title = ugettext_lazy('Dental Web Admin')
-    index_title = ugettext_lazy('Welcome to Dental Web Admin')
+    site_header = _('Dental Web Administration')
+    site_title = _('Dental Web Admin')
+    index_title = _('Welcome to Dental Web Admin')
 
 admin_site = MyAdminSite(name='myadmin')
 
