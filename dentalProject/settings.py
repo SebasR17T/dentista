@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dentalApp',
-    'admin_interface',  # Ensure this line is present
-    'colorfield',  # Ensure this line is present
+    
 ]
 
 MIDDLEWARE = [
