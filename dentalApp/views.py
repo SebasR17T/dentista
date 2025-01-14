@@ -6,6 +6,8 @@ import datetime
 from django.contrib import messages
 from django.utils import timezone
 from .google_calendar import create_calendar_event
+from datetime import datetime, timedelta
+from .calendar_utils import create_event
 
 class BaseContextMixin:
     def get_context_data(self, **kwargs):
@@ -81,3 +83,29 @@ def contact(request):
         # For example, send an email or save to database
         return render(request, 'dentalApp/contact.html', {'success': True})
     return render(request, 'dentalApp/contact.html')
+
+def agendar_cita(request):
+    if request.method == 'POST':
+        # ... existing form validation code ...
+        
+        if form.is_valid():
+            cita = form.save()
+            
+            # Create calendar event
+            start_time = datetime.combine(cita.fecha, cita.hora)
+            end_time = start_time + timedelta(hours=1)  # Assuming 1-hour appointments
+            
+            event_summary = f"Cita Dental - {cita.paciente.nombre}"
+            event_description = f"""
+            Paciente: {cita.paciente.nombre}
+            Tratamiento: {cita.tratamiento}
+            Doctor: {cita.doctor}
+            """
+            
+            try:
+                create_event(event_summary, start_time, end_time, event_description)
+            except Exception as e:
+                # Handle calendar errors but still save appointment
+                print(f"Error creating calendar event: {e}")
+            
+            return redirect('lista_citas')
