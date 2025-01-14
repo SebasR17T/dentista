@@ -1,10 +1,6 @@
 venv/
 _pycache_/
 db.sqlite3/
-.env
-credentials.json
-*.pyc
-__pycache__/
-.env*
-!.env.example
-!credentials.json.example
+/venv
+/credentials.json
+credentials.json/
