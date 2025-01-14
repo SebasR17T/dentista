@@ -1,5 +1,16 @@
-venv
-_pycache_
+# Virtual Environment
+venv/
+__pycache__/
+
+# Database
 db.sqlite3
-venv
+
+# Sensitive files
 credentials.json
+*.pem
+*.key
+.env
+
+# IDE
+.vscode/
+.idea/
