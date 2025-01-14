@@ -34,6 +34,7 @@ class Appointment(models.Model):
         default='pendiente',
         verbose_name='Estado'
     )
+    google_calendar_event_id = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f"{self.patient_name} - {self.service.name} on {self.appointment_date} at {self.appointment_time}"

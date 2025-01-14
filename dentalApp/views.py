@@ -5,6 +5,7 @@ from .forms import AppointmentForm
 import datetime
 from django.contrib import messages
 from django.utils import timezone
+from .google_calendar import create_calendar_event
 
 class BaseContextMixin:
     def get_context_data(self, **kwargs):
@@ -51,8 +52,18 @@ class AppointmentCreateView(BaseContextMixin, TemplateView):
                 messages.error(request, 'No hay citas disponibles para esta fecha y hora. Por favor, elija otra fecha u hora.')
                 return self.render_to_response({'form': form})
 
-            form.save()
-            messages.success(request, 'Cita agendada con éxito.')
+            # Guardar la cita
+            appointment = form.save()
+            
+            try:
+                # Crear evento en Google Calendar
+                event_id = create_calendar_event(appointment)
+                appointment.google_calendar_event_id = event_id
+                appointment.save()
+                messages.success(request, 'Cita agendada con éxito y agregada a Google Calendar.')
+            except Exception as e:
+                messages.warning(request, 'Cita agendada con éxito, pero hubo un problema al agregarla a Google Calendar.')
+            
             return redirect('HomePageView')
 
         return self.render_to_response({'form': form})
