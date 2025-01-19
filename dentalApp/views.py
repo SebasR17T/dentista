@@ -1,13 +1,12 @@
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from .models import Service, Appointment, SocialMediaSettings
 from .forms import AppointmentForm
 import datetime
 from django.contrib import messages
 from django.utils import timezone
-from .google_calendar import create_calendar_event
 from datetime import datetime, timedelta
-from .calendar_utils import create_event
 
 class BaseContextMixin:
     def get_context_data(self, **kwargs):
@@ -33,42 +32,15 @@ class ServiceDetailView(BaseContextMixin, DetailView):
     template_name = 'dentalApp/service_detail.html'
     context_object_name = 'service'
 
-class AppointmentCreateView(BaseContextMixin, TemplateView):
+class AppointmentCreateView(BaseContextMixin, CreateView):
+    model = Appointment
+    form_class = AppointmentForm
     template_name = 'dentalApp/appointment_form.html'
+    success_url = reverse_lazy('lista_citas')
 
-    def get(self, request, *args, **kwargs):
-        form = AppointmentForm()    
-        return self.render_to_response({'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = AppointmentForm(request.POST)
-        if form.is_valid():
-            appointment_date = form.cleaned_data['appointment_date']
-            appointment_time = form.cleaned_data['appointment_time']
-            appointment_datetime = timezone.datetime.combine(appointment_date, appointment_time)
-            start_time = appointment_datetime
-            end_time = appointment_datetime + timezone.timedelta(hours=1)
-            appointments = Appointment.objects.filter(appointment_date__range=(start_time, end_time))
-
-            if appointments.count() >= 6:
-                messages.error(request, 'No hay citas disponibles para esta fecha y hora. Por favor, elija otra fecha u hora.')
-                return self.render_to_response({'form': form})
-
-            # Guardar la cita
-            appointment = form.save()
-            
-            try:
-                # Crear evento en Google Calendar
-                event_id = create_calendar_event(appointment)
-                appointment.google_calendar_event_id = event_id
-                appointment.save()
-                messages.success(request, 'Cita agendada con éxito y agregada a Google Calendar.')
-            except Exception as e:
-                messages.warning(request, 'Cita agendada con éxito, pero hubo un problema al agregarla a Google Calendar.')
-            
-            return redirect('HomePageView')
-
-        return self.render_to_response({'form': form})
+    def form_valid(self, form):
+        messages.success(self.request, 'Cita agendada exitosamente.')
+        return super().form_valid(form)
 
 def about(request):
     return render(request, 'dentalApp/about.html')
@@ -83,29 +55,3 @@ def contact(request):
         # For example, send an email or save to database
         return render(request, 'dentalApp/contact.html', {'success': True})
     return render(request, 'dentalApp/contact.html')
-
-def agendar_cita(request):
-    if request.method == 'POST':
-        # ... existing form validation code ...
-        
-        if form.is_valid():
-            cita = form.save()
-            
-            # Create calendar event
-            start_time = datetime.combine(cita.fecha, cita.hora)
-            end_time = start_time + timedelta(hours=1)  # Assuming 1-hour appointments
-            
-            event_summary = f"Cita Dental - {cita.paciente.nombre}"
-            event_description = f"""
-            Paciente: {cita.paciente.nombre}
-            Tratamiento: {cita.tratamiento}
-            Doctor: {cita.doctor}
-            """
-            
-            try:
-                create_event(event_summary, start_time, end_time, event_description)
-            except Exception as e:
-                # Handle calendar errors but still save appointment
-                print(f"Error creating calendar event: {e}")
-            
-            return redirect('lista_citas')

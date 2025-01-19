@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import ServiceListView, ServiceDetailView, HomePageView, AppointmentCreateView
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('services/', ServiceListView.as_view(), name='ServiceListView'),
@@ -10,4 +12,4 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     # ...existing code...
-]
+] 
